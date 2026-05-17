@@ -1,0 +1,108 @@
+=== ICONES GRAVADOS NA SPI FLASH (W25Q64 - 8MB) ===
+Layout da memória:
+  LOGO_ADDR:     0x000000  (810 KB)
+  ICON_ADDR(n):  n * 0x5000 + 0x0C6000  (cada icon = 20 KB)
+  Fim icons:     0x280000 (inicio dos fonts Unicode)
+  Max icons:     88
+
+--------------------------------------------------------------
+ÍCONES ATIVOS (arquivos BMP em TFT35/bmp/ no SD card)
+--------------------------------------------------------------
+ #  | BMP File       | Nome Código          | Funcionalidade
+----+----------------+----------------------+------------------------------
+  0 | About.bmp      | ICON_SCREEN_INFO     | Info do dispositivo/versão
+  1 | BabyStep.bmp   | ICON_BABYSTEP        | Ajuste fino Z (babystepping)
+  2 | Back.bmp       | ICON_BACK            | Voltar ao menu anterior
+  3 | Both.bmp       | ICON_BOTH            | Alternar alvo pré-aquecimento
+  4 | Dec.bmp        | ICON_DEC             | Diminuir valor
+  5 | Dec_X.bmp      | ICON_X_DEC           | Mover X negativo
+  6 | Dec_Y.bmp      | ICON_Y_DEC           | Mover Y negativo
+  7 | Dec_Z.bmp      | ICON_Z_DEC           | Mover Z para baixo
+  8 | Down.bmp       | ICON_DOWN            | Diminuir offset/babystep
+  9 | EEPROM~1.bmp   | ICON_EEPROM_SAVE     | Salvar config na EEPROM
+ 10 | EM_Stop.bmp    | ICON_EM_STOP         | Parada de emergência
+ 11 | Emm_1.bmp      | ICON_E_1_MM          | Step 1mm (extrusão) ou 1%
+ 12 | Emm_5.bmp      | ICON_E_5_MM          | Step 5mm ou 5%
+ 13 | Emm_10.bmp     | ICON_E_10_MM         | Step 10mm ou 10%
+ 14 | Extrude.bmp    | ICON_EXTRUDE         | Menu de extrusão/filamento
+ 15 | Fan.bmp        | ICON_FAN             | Controle de ventoinha
+ 16 | Fast.bmp       | ICON_FAST_SPEED      | Velocidade rápida extrusão
+ 17 | Featur~1.bmp   | ICON_FEATURE_SETTINGS| Configurações de recursos
+ 18 | Full.bmp       | ICON_FAN_FULL_SPEED  | Ventoinha à 100%
+ 19 | Half.bmp       | ICON_FAN_HALF_SPEED  | Ventoinha à 50%
+ 20 | Heat.bmp       | ICON_HEAT            | Menu de aquecimento
+ 21 | Home.bmp       | ICON_HOME            | Home todos eixos (G28)
+ 22 | Home_X.bmp     | ICON_X_HOME          | Home X
+ 23 | Home_Y.bmp     | ICON_Y_HOME          | Home Y
+ 24 | Home_Z.bmp     | ICON_Z_HOME          | Home Z
+ 25 | Hotbed.bmp     | ICON_BED             | Selecionar mesa aquecida
+ 26 | Inc.bmp        | ICON_INC             | Aumentar valor
+ 27 | Inc_X.bmp      | ICON_X_INC           | Mover X positivo
+ 28 | Inc_Y.bmp      | ICON_Y_INC           | Mover Y positivo
+ 29 | Inc_Z.bmp      | ICON_Z_INC           | Mover Z para cima
+ 30 | Language.bmp   | ICON_LANGUAGE        | Alternar idioma
+ 31 | Leveling.bmp   | ICON_LEVELING        | Nivelamento automático mesa
+ 32 | Load.bmp       | ICON_LOAD            | Carregar filamento
+ 33 | MainMenu.bmp   | ICON_MAINMENU        | Abrir menu principal
+ 34 | Mmm_001.bmp    | ICON_001_MM          | Step 0.01mm (precisão fina)
+ 35 | Mmm_01.bmp     | ICON_01_MM           | Step 0.1mm
+ 36 | Mmm_1.bmp      | ICON_1_MM            | Step 1mm
+ 37 | Mmm_10.bmp     | ICON_10_MM           | Step 10mm
+ 38 | More.bmp       | ICON_MORE            | Menu secundário "Mais"
+ 39 | Move.bmp       | ICON_MOVE            | Menu de movimentação (jog)
+ 40 | Normal.bmp     | ICON_NORMAL_SPEED    | Velocidade normal; reset 100%
+ 41 | Nozzle.bmp     | ICON_NOZZLE          | Selecionar bico
+ 42 | Pause.bmp      | ICON_PAUSE           | Pausar impressão
+ 43 | Percen~1.bmp   | ICON_PERCENTAGE      | Ajustar speed/flow (%)
+ 44 | Preheat.bmp    | ICON_PREHEAT         | Pré-aquecimento PLA/ABS/TPU
+ 45 | Print.bmp      | ICON_PRINT           | Navegador de arquivos SD
+ 46 | ProbeO~1.bmp   | ICON_PROBE_OFFSET    | Ajustar offset sonda BLTouch
+ 47 | Resume.bmp     | ICON_RESUME          | Retomar impressão
+ 48 | Runout.bmp     | ICON_RUNOUT          | Sensor fim de filamento on/off
+ 49 | SD.bmp         | ICON_SD_SOURCE       | Fonte SD card
+ 50 | Settings.bmp   | ICON_SETTINGS        | Abrir configurações
+ 51 | Silent~1.bmp   | ICON_SILENT_OFF      | Desativar buzzer
+ 52 | SilentOn.bmp   | ICON_SILENT_ON       | Ativar buzzer
+ 53 | Slow.bmp       | ICON_SLOW_SPEED      | Velocidade lenta extrusão
+ 54 | Start.bmp      | ICON_START           | Iniciar aquecimento
+ 55 | Status~1.bmp   | ICON_STATUSBED       | Status da mesa
+ 56 | Status~2.bmp   | ICON_STATUSFAN       | Status da ventoinha
+ 57 | Status~3.bmp   | ICON_STATUSNOZZLE    | Status do bico
+ 58 | Status~4.bmp   | ICON_STATUS_SPEED    | Indicador de velocidade
+ 59 | Stop.bmp       | ICON_STOP            | Parar aquecimento/desligar
+ 60 | Temp_1.bmp     | ICON_1_DEGREE        | Step 1 grau
+ 61 | Temp_5.bmp     | ICON_5_DEGREE        | Step 5 graus
+ 62 | Temp_10.bmp    | ICON_10_DEGREE       | Step 10 graus
+ 63 | Udisk.bmp      | ICON_UDISK           | Fonte USB disk
+ 64 | Unload.bmp     | ICON_UNLOAD          | Descarregar filamento
+ 65 | Up.bmp         | ICON_UP              | Aumentar offset/babystep
+
+--------------------------------------------------------------
+ÍCONES DEFINIDOS NO ENUM MAS SEM BMP (não carregados)
+--------------------------------------------------------------
+  ICON_POWER_SUPPLY     - Modo desligamento (comentado)
+  ICON_RGB_RED          - LED vermelho (M150)
+  ICON_RGB_GREEN        - LED verde (M150)
+  ICON_RGB_BLUE         - LED azul (M150)
+  ICON_RGB_WHITE        - LED branco (M150)
+  ICON_RGB_OFF          - LED desligado (M150)
+  ICON_RGB_SETTINGS     - Submenu RGB
+  ICON_BLTOUCH_DEPLOY   - Deploy BLTouch (M280 P0 S10)
+  ICON_BLTOUCH_STOW     - Stow BLTouch (M280 P0 S90)
+  ICON_BLTOUCH_TEST     - Testar BLTouch (M280 P0 S120)
+  ICON_PREVIEW          - Thumbnail preview de impressão
+  ICON_BACKGROUND       - Slot vazio/placeholder
+
+--------------------------------------------------------------
+LOGO (boot splash)
+--------------------------------------------------------------
+  Arquivo: Logo.bmp em TFT35/bmp/
+  Endereço: LOGO_ADDR (0x000000)
+  Tamanho armazenado: 480x320 pixels RGB565 = 307,200 bytes
+  Exibido full-screen na inicialização por LOGO_ReadDisplay()
+
+--------------------------------------------------------------
+FONTES
+--------------------------------------------------------------
+  Unicode: 0x280000 a 0x6FFFFF (~4.5 MB)
+  ASCII:   0x700000 a 0x7FFFFF (~1 MB)
