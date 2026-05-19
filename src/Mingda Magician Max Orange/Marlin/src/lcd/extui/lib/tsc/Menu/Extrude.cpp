@@ -164,10 +164,7 @@ void menuCallBackExtrude(void)
     
     case KEY_ICON_3:
       stop_home = false;
-      if(pause_extrude_flag)
-        ExtUI::setAxisPosition_mm(ExtUI::getAxisPosition_mm(item_extruder_i) + item_len[item_len_i], item_extruder_i, item_speed[item_speed_i]);
-      else
-        e_add_mm += item_len[item_len_i];   // 点击了进料按钮，数值增大
+      ExtUI::setAxisPosition_mm(ExtUI::getAxisPosition_mm(item_extruder_i) + item_len[item_len_i], item_extruder_i, item_speed[item_speed_i]);
       break;
     
     case KEY_ICON_4:
@@ -202,7 +199,6 @@ void menuCallBackExtrude(void)
       stop_home = false;
       if(pause_extrude_flag){
         pause_extrude_flag = false;
-        // wait_for_user = false;   //wait touch continue button
       }
       infoMenu.cur--; 
       break;
@@ -210,22 +206,15 @@ void menuCallBackExtrude(void)
     default:
       break;
   }
-  
-  // if (extrudeCoordinate != ExtUI::getAxisPosition_mm(item_extruder_i)){
-  //   extrudeCoordinate = ExtUI::getAxisPosition_mm(item_extruder_i);
-  //   extrudeCoordinateReDraw();
-  // }
 
-  // 显示在屏幕上
-  if (millis() - nowTime_ms > 1000) { // Refresh per 1 sec
+  if (millis() - nowTime_ms > 1000) {
     nowTime_ms = millis();
-    // Refresh position
     if(isBusy && (!pause_extrude_flag)){
       if(top_info_ai == 0){
         top_info_ai++;  top_info_bi = 0;  top_info_ci = 0;
         GUI_ClearRect(95, 0, LCD_WIDTH_PIXEL, TITLE_END_Y-10);
       }
-      drawTopInfo(LABEL_BUSY);  // 绘制繁忙信息
+      drawTopInfo(LABEL_BUSY);
     }
    #ifdef PREVENT_COLD_EXTRUSION
     else if(tempMsg.actHotend < EXTRUDE_MINTEMP){
@@ -245,8 +234,7 @@ void menuCallBackExtrude(void)
 
     GUI_SetColor(VAL_COLOR);
     GUI_SetBkColor(WHITE);
-    GUI_DispString(HOTEND_SEPARATOR_X, STATUS_START_Y, (uint8_t *)"/"); // Ext value
-    // Refresh hotend temperature
+    GUI_DispString(HOTEND_SEPARATOR_X, STATUS_START_Y, (uint8_t *)"/");
     if (statusMsg.actHotend != tempMsg.actHotend) {
       statusMsg.actHotend = tempMsg.actHotend;
       redrawHotendAct(tempMsg.actHotend);
@@ -267,7 +255,7 @@ void menuCallBackExtrude(void)
 
 void menuExtrude()
 {
-  e_add_mm = top_info_ai = top_info_bi = top_info_ci = 0;   // 防止上一次界面的干扰
+  e_add_mm = top_info_ai = top_info_bi = top_info_ci = 0;
   statusMsg.actHotend = -1;
   statusMsg.tagHotend = -1;
   #if 0
@@ -288,18 +276,17 @@ void menuCallBackExtrude2(void)
 {
   STATUS_MSG tempMsg;
   statusMsg_GetCurMsg(&tempMsg);
-  // Position refresh per 1 sec
   static uint32_t nowTime_ms = 0;
   KEY_VALUES key_num = menuKeyGetValue();
 
-  if(queue.length == 0 && (!pause_extrude_flag)){   // G命令队列为空,且为非暂停状态（注：暂停状态属于阻塞状态，无法通过G代码移动电机）
+  if(queue.length == 0 && (!pause_extrude_flag)){
     isBusy = false;
     if(e_add_mm != 0){
       e_add_mm_t = (getAxisPosition_mm(item_extruder_i) + e_add_mm);
       e_add_mm = 0;
 
-      memset(G1_STR, 0, sizeof(G1_STR));    // 清空数组
-      switch(item_speed_i){   // 选择进料速度
+      memset(G1_STR, 0, sizeof(G1_STR));
+      switch(item_speed_i){
         case 0:
           sprintf(G1_STR, "G1 E%d F%d\n", e_add_mm_t, item_speed[item_speed_i]);
           break;
@@ -310,7 +297,7 @@ void menuCallBackExtrude2(void)
           sprintf(G1_STR, "G1 E%d F%d\n", e_add_mm_t, item_speed[item_speed_i]);
           break;
       }
-      queue.enqueue_one_now(G1_STR);    // 命令填入队列
+      queue.enqueue_one_now(G1_STR);
     }
   }else isBusy = true;
 
@@ -322,43 +309,30 @@ void menuCallBackExtrude2(void)
       char str[64];
       write_tmc_reg(0x6C, 0xD4028103);
       sr = read_tmc_reg(0x6C);
-      //sprintf_P(str, "reg:%B");
       str[0] = '6';
       str[1] = 'C';
       str[2] = ':';
       itoa(sr, str+3, 16);
-      // GUI_SetColor(VAL_COLOR);
-      // GUI_SetBkColor(WHITE);
       GUI_SetColor(WHITE);
       GUI_SetBkColor(VAL_COLOR);
       GUI_DispString(180, 5, (uint8_t*)str);
       sr = read_tmc_reg(0x6F);
-      //sprintf_P(str, "reg:%B");
       str[0] = '6';
       str[1] = 'F';
       str[2] = ':';
       itoa(sr, str+3, 16);
       GUI_DispString(180, 30, (uint8_t*)str);
      #else
-      if(pause_extrude_flag)  // 暂停状态使用这个函数，因为暂停处于阻塞状态，无法使用Gcode
+      if(pause_extrude_flag)
         ExtUI::setAxisPosition_mm(ExtUI::getAxisPosition_mm(item_extruder_i) - item_len[item_len_i], item_extruder_i, item_speed[item_speed_i]);
       else
-        e_add_mm -= item_len[item_len_i];   // 点击了退料按钮，数值减小
+        e_add_mm -= item_len[item_len_i];
      #endif
       break;
-    // case KEY_ICON_0:
-    //   if(!pause_extrude_flag){
-    //     stop_home = true;
-    //     quickstop_stepper();
-    //   }
-    //   break;
     
     case KEY_ICON_3:
       stop_home = false;
-      if(pause_extrude_flag)
-        ExtUI::setAxisPosition_mm(ExtUI::getAxisPosition_mm(item_extruder_i) + item_len[item_len_i], item_extruder_i, item_speed[item_speed_i]);
-      else
-        e_add_mm += item_len[item_len_i];   // 点击了进料按钮，数值增大
+      ExtUI::setAxisPosition_mm(ExtUI::getAxisPosition_mm(item_extruder_i) + item_len[item_len_i], item_extruder_i, item_speed[item_speed_i]);
       break;
     
     case KEY_ICON_4:
