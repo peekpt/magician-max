@@ -21,18 +21,13 @@
  */
 #pragma once
 
-// 选择机器型号
-#define R3_PRO    // R3_pro:max
-// #define R4_PRO    // R4_pro:pro
-
-// 使用了st芯片
 // #define ST32_SHIP
 #define USE_GD32
 
 #define HAS_UDISK
-// #define QUICK_PRINT
+
 // #define USART_LCD
-// #define NEW_BOARD
+
 // #define SHORT_PROTECTION   // Low side short protection disable
 // #define MAGICIAN_X2        // magician X2, has two Z_ENDSTOP, The screen is inverted.
 // #define STANDBY_MODE        // the system go to standby mode
@@ -40,28 +35,15 @@
 #define EX_TIME_HEAT_HOTEND // 指数型检测热端加热时间
 #define USE_TI_CHOKE        // 加入钛合金喉管
 
-// #define TEST_FW
-// #define OTHER_CUSTOM           // 定制的
+
 // #define WS2812_LED
 // #define SHOW_THUMBNAIL
 
-/* D2:230*230*260
- * R3:320*320*400
- * R4:420*420*400 */
-#if ENABLED(R3_PRO)
-  #define X_BED_SIZE 320
-  #define Y_BED_SIZE 320
-  #define Z_BED_SIZE 400
-#elif ENABLED(R4_PRO)
-  #define X_BED_SIZE 400
-  #define Y_BED_SIZE 400
-  #define Z_BED_SIZE 400
-#else
-  // #define X_BED_SIZE 210
-  #define X_BED_SIZE 230
-  #define Y_BED_SIZE 230
-  #define Z_BED_SIZE 260
-#endif
+
+#define X_BED_SIZE 320
+#define Y_BED_SIZE 320
+#define Z_BED_SIZE 400
+
 
 #define D301_AUTO_LEVELING
 #ifdef D301_AUTO_LEVELING
@@ -99,44 +81,10 @@
  */
 #define CONFIGURATION_H_VERSION 020007
 
-//===========================================================================
-//============================= Getting Started =============================
-//===========================================================================
-
-/**
- * Here are some standard links for getting your machine calibrated:
- *
- * https://reprap.org/wiki/Calibration
- * https://youtu.be/wAL9d7FgInk
- * http://calculator.josefprusa.cz
- * https://reprap.org/wiki/Triffid_Hunter%27s_Calibration_Guide
- * https://www.thingiverse.com/thing:5573
- * https://sites.google.com/site/repraplogphase/calibration-of-your-reprap
- * https://www.thingiverse.com/thing:298812
- */
-
-//===========================================================================
-//============================= DELTA Printer ===============================
-//===========================================================================
-// For a Delta printer start with one of the configuration files in the
-// config/examples/delta directory and customize for your machine.
-//
-
-//===========================================================================
-//============================= SCARA Printer ===============================
-//===========================================================================
-// For a SCARA printer start with the configuration files in
-// config/examples/SCARA and customize for your machine.
-//
-
-// @section info
-
 // Author info of this build printed to the host during boot and M115
-#ifdef OTHER_CUSTOM
-  #define STRING_CONFIG_H_AUTHOR "(d301)" // Who made the changes.
-#else
-  #define STRING_CONFIG_H_AUTHOR "(langgo, MD d301)" // Who made the changes.
-#endif
+
+#define STRING_CONFIG_H_AUTHOR "(langgo, MD d301)" // Who made the changes.
+
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -169,19 +117,16 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#ifdef NEW_BOARD
-  #define SERIAL_PORT 3
-#else
-  // #define SERIAL_PORT 2
-  #define SERIAL_PORT 3
-#endif
+
+#define SERIAL_PORT 3
+
 
 /**
  * Select a secondary serial port on the board to use for communication with the host.
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
 // #ifndef USE_GD32
-  #define SERIAL_PORT_2 -1
+#define SERIAL_PORT_2 -1
 // #endif
 /**
  * This setting determines the communication speed of the printer.
@@ -685,9 +630,6 @@
 
 // Enable one of the options below for CoreXY, CoreXZ, or CoreYZ kinematics,
 // either in the usual order or reversed
-#ifdef QUICK_PRINT
-  #define COREXZ
-#endif
 //#define COREXY
 //#define COREXZ
 //#define COREYZ
@@ -705,21 +647,14 @@
 // Specify here all the endstop connectors that are connected to any endstop or probe.
 // Almost all printers will be using one per axis. Probes will use one or more of the
 // extra connectors. Leave undefined any used for non-endstop and non-probe purposes.
-#if ENABLED(QUICK_PRINT)
-  // #define USE_XMIN_PLUG
-  #define USE_YMIN_PLUG
-  #define USE_ZMIN_PLUG
-  #define USE_XMAX_PLUG
-  //#define USE_YMAX_PLUG
-  //#define USE_ZMAX_PLUG
-#else
+
   #define USE_XMIN_PLUG
   #define USE_YMIN_PLUG
   #define USE_ZMIN_PLUG
   // #define USE_XMAX_PLUG
   //#define USE_YMAX_PLUG
   //#define USE_ZMAX_PLUG
-#endif
+
 
 // Enable pullup for all endstops to prevent a floating state
 #define ENDSTOPPULLUPS
@@ -780,41 +715,13 @@
  *          TMC5130, TMC5130_STANDALONE, TMC5160, TMC5160_STANDALONE
  * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'L6474', 'POWERSTEP01', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
  */
-#if ENABLED(NEW_BOARD)
+
 #define X_DRIVER_TYPE  TMC2208
 #define Y_DRIVER_TYPE  TMC2208
 #define Z_DRIVER_TYPE  TMC2208
-//#define X2_DRIVER_TYPE A4988
-//#define Y2_DRIVER_TYPE A4988
 #define Z2_DRIVER_TYPE TMC2208
-//#define Z3_DRIVER_TYPE A4988
-//#define Z4_DRIVER_TYPE A4988
 #define E0_DRIVER_TYPE TMC2208
-//#define E1_DRIVER_TYPE A4988
-//#define E2_DRIVER_TYPE A4988
-//#define E3_DRIVER_TYPE A4988
-//#define E4_DRIVER_TYPE A4988
-//#define E5_DRIVER_TYPE A4988
-//#define E6_DRIVER_TYPE A4988
-//#define E7_DRIVER_TYPE A4988
-#else
-#define X_DRIVER_TYPE  TMC2208
-#define Y_DRIVER_TYPE  TMC2208
-#define Z_DRIVER_TYPE  TMC2208
-//#define X2_DRIVER_TYPE A4988
-//#define Y2_DRIVER_TYPE A4988
-#define Z2_DRIVER_TYPE TMC2208
-//#define Z3_DRIVER_TYPE A4988
-//#define Z4_DRIVER_TYPE A4988
-#define E0_DRIVER_TYPE TMC2208
-//#define E1_DRIVER_TYPE A4988
-//#define E2_DRIVER_TYPE A4988
-//#define E3_DRIVER_TYPE A4988
-//#define E4_DRIVER_TYPE A4988
-//#define E5_DRIVER_TYPE A4988
-//#define E6_DRIVER_TYPE A4988
-//#define E7_DRIVER_TYPE A4988
-#endif
+
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
@@ -862,13 +769,9 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#if ENABLED(QUICK_PRINT)
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 158, 80, 158, 400 }
-#elif ENABLED(TEST_FW)
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 800, 800, 800, 400 }
-#else
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 800, 400 }
-#endif
+
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 800, 400 }
+
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -876,13 +779,10 @@
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 // #define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 45 }
-#if ENABLED(QUICK_PRINT)
-  #define DEFAULT_MAX_FEEDRATE          { 300, 300, 10, 90 }
-#elif ENABLED(TEST_FW)
-  #define DEFAULT_MAX_FEEDRATE          { 10, 10, 5, 45 }
-#else
-  #define DEFAULT_MAX_FEEDRATE          { 200, 200, 20, 45 }
-#endif
+
+// #define DEFAULT_MAX_FEEDRATE          { 200, 200, 20, 45 }
+#define DEFAULT_MAX_FEEDRATE { 300, 300, 20, 45 }
+
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -895,11 +795,10 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#ifdef QUICK_PRINT
-  #define DEFAULT_MAX_ACCELERATION      { 600, 600, 600, 700 }
-#else
-  #define DEFAULT_MAX_ACCELERATION      { 600, 600, 100, 700 }
-#endif
+
+#define DEFAULT_MAX_ACCELERATION { 1500, 1200, 50, 700 }
+// #define DEFAULT_MAX_ACCELERATION      { 600, 600, 100, 700 }
+
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -914,15 +813,10 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-// #ifdef QUICK_PRINT
-//   #define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
-//   #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-//   #define DEFAULT_TRAVEL_ACCELERATION   1000    // X, Y, Z acceleration for travel (non printing) moves
-// #else
-  #define DEFAULT_ACCELERATION          600    // X, Y, Z and E acceleration for printing moves
-  #define DEFAULT_RETRACT_ACCELERATION  600    // E acceleration for retracts
-  #define DEFAULT_TRAVEL_ACCELERATION   800    // X, Y, Z acceleration for travel (non printing) moves
-// #endif
+
+#define DEFAULT_ACCELERATION          1200   // X, Y, Z and E max acceleration for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  1200  // E acceleration for retracts
+#define DEFAULT_TRAVEL_ACCELERATION   1200  // X, Y, Z acceleration for travel moves
 
 /**
  * Default Jerk limits (mm/s)
@@ -932,7 +826,7 @@
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
  */
-#define CLASSIC_JERK
+//#define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
   #define DEFAULT_XJERK 8.0
   #define DEFAULT_YJERK 5.0
@@ -956,7 +850,7 @@
  *   https://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
 #if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.08 // (mm) Distance from real junction edge
+  #define JUNCTION_DEVIATION_MM 0.035 // (mm) Distance from real junction edge
   #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
                                       // for small segments (< 1mm) with large junction angles (> 135°).
 #endif
@@ -1135,20 +1029,7 @@
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
 #define PROBING_MARGIN 30
-// #if ENABLED(R3_PRO) || ENABLED(R4_PRO)
-//   #define PROBING_MARGIN_X (int)X_BED_SIZE*10/35
-//   #define PROBING_MARGIN_Y 60
-// #else
-//   #define PROBING_MARGIN_X (int)X_BED_SIZE/3
-//   #define PROBING_MARGIN_Y 40
-// #endif
 
-// 探针在X轴和Y轴之间的移动速度(mm/min)
-#if ENABLED(R4_PRO)
-  #define XY_PROBE_SPEED 5000 //(83*60)
-#else
-  #define XY_PROBE_SPEED 8000 //(133*60)
-#endif
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 #define Z_PROBE_SPEED_FAST (10*60) //HOMING_FEEDRATE_Z
@@ -1257,36 +1138,19 @@
 // @section machine
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#if ENABLED(QUICK_PRINT)
-  #define INVERT_X_DIR true
-  #define INVERT_Y_DIR true
-  #define INVERT_Z_DIR true
-#elif ENABLED(TEST_FW)
-  #define INVERT_X_DIR true
-  #define INVERT_Y_DIR true
-  #define INVERT_Z_DIR true
-#elif ENABLED(NEW_BOARD)
-  #define INVERT_X_DIR true
-  #define INVERT_Y_DIR false
-  #define INVERT_Z_DIR false
-#else
-  #define INVERT_X_DIR false
-  #define INVERT_Y_DIR true
-  #define INVERT_Z_DIR true
-#endif
+
+#define INVERT_X_DIR false
+#define INVERT_Y_DIR true
+#define INVERT_Z_DIR true
+
 
 // #define INVERT_Z_DIR true
 
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#if ENABLED(QUICK_PRINT)
-#define INVERT_E0_DIR false
-#elif ENABLED(NEW_BOARD)
+
 #define INVERT_E0_DIR true
-#else
-#define INVERT_E0_DIR true
-#endif
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
@@ -1308,15 +1172,11 @@
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
-#if ENABLED(QUICK_PRINT)
-  #define X_HOME_DIR  1
-  #define Y_HOME_DIR -1
-  #define Z_HOME_DIR -1
-#else
-  #define X_HOME_DIR -1
-  #define Y_HOME_DIR -1
-  #define Z_HOME_DIR -1
-#endif
+
+#define X_HOME_DIR -1
+#define Y_HOME_DIR -1
+#define Z_HOME_DIR -1
+
 
 // @section machine
 
@@ -1490,13 +1350,10 @@
 #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #if ENABLED(R4_PRO)
-    #define GRID_MAX_POINTS_X 6 //调平点阵6*6
-    #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
-  #else
-    #define GRID_MAX_POINTS_X 4 //调平点阵4*4
-    #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
-  #endif
+  
+  #define GRID_MAX_POINTS_X 4 //调平点阵4*4
+  #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
+  
 
 
   // Probe along the Y axis, advancing X after each column
@@ -1608,16 +1465,10 @@
 #endif
 
 // Homing speeds (mm/min)
-#ifdef TEST_FW
-  #define HOMING_FEEDRATE_XY (6*60)
-#else
-  #define HOMING_FEEDRATE_XY (50*60)
-#endif
-#ifdef QUICK_PRINT
-  #define HOMING_FEEDRATE_Z  (20*60)
-#else
-  #define HOMING_FEEDRATE_Z  (10*60)
-#endif
+
+#define HOMING_FEEDRATE_XY (50*60)
+#define HOMING_FEEDRATE_Z  (10*60)
+
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
