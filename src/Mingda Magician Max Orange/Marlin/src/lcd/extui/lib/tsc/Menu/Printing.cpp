@@ -222,8 +222,11 @@ void reDrawProgress(uint8_t progress)
 {	  
   char buf[5];
   uint16_t progressX = map(progress, 0, 100, progressRect.x0, progressRect.x1);
-  GUI_FillRectColor(progressRect.x0, progressRect.y0, progressX, progressRect.y1,BLUE);
-  GUI_FillRectColor(progressX, progressRect.y0, progressRect.x1, progressRect.y1,GRAY);
+  GUI_FillRectColor(progressRect.x0, progressRect.y0, progressRect.x1, progressRect.y1, BLACK);
+  GUI_FillRectColor(progressRect.x0, progressRect.y0, progressX, progressRect.y1, ORANGE);
+  GUI_SetColor(ORANGE);
+  GUI_DrawPrect(&progressRect);
+  GUI_SetColor(WHITE);
   sprintf(buf, "%3d%%", progress);
   GUI_SetTextMode(GUI_TEXTMODE_TRANS);
   GUI_DispStringInPrect(&progressRect, (uint8_t *)buf);    

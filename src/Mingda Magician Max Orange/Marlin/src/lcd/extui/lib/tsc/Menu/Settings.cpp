@@ -71,17 +71,24 @@ void menuInfo(void)
 {
   const char* hardware = "Board   : " BOARD_INFO_NAME ROBOT_NAME CHIP_NAME;
   const char* firmware = "Firmware: " SHORT_BUILD_VERSION MATERIALS_NAME " (" __DATE__") ";
+  const char* marlin = "Marlin  : 2.0.7.2";
+  const char* orangeMod = "ORANGE MOD";
   
   uint16_t HW_X = (LCD_WIDTH_PIXEL - GUI_StrPixelWidth((uint8_t *)hardware))/2;
   uint16_t FW_X = (LCD_WIDTH_PIXEL - GUI_StrPixelWidth((uint8_t *)firmware))/2;
+  uint16_t ML_X = (LCD_WIDTH_PIXEL - GUI_StrPixelWidth((uint8_t *)marlin))/2;
+  uint16_t OM_X = (LCD_WIDTH_PIXEL - GUI_StrPixelWidth((uint8_t *)orangeMod))/2;
   uint16_t centerY = LCD_HEIGHT_PIXEL/2;
-  uint16_t startX = min(HW_X, FW_X);  
+  uint16_t startX = min(HW_X, min(FW_X, ML_X));
   GUI_Clear(BK_COLOR);
   GUI_DispString(startX, centerY - BYTE_HEIGHT, (uint8_t *)hardware);
   GUI_DispString(startX, centerY, (uint8_t *)firmware);
+  GUI_DispString(startX, centerY + BYTE_HEIGHT, (uint8_t *)marlin);
+  GUI_SetColor(ORANGE);
+  GUI_DispString(OM_X, centerY + BYTE_HEIGHT * 2, (uint8_t *)orangeMod);
   GUI_DispStringInRect(20, LCD_HEIGHT_PIXEL - (BYTE_HEIGHT*2), LCD_WIDTH_PIXEL-20, LCD_HEIGHT_PIXEL, textSelect(LABEL_TOUCH_TO_EXIT));
 
-  TSC_ReDrawIcon = 0; // invalid icon redraw function
+  TSC_ReDrawIcon = 0;
   menuSetFrontCallBack(menuCallBackInfo);
 }
 

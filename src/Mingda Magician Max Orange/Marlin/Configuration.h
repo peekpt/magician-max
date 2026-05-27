@@ -815,9 +815,9 @@
  *   M204 T    Travel Acceleration
  */
 
-#define DEFAULT_ACCELERATION          1200   // X, Y, Z and E max acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  1200  // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   1200  // X, Y, Z acceleration for travel moves
+#define DEFAULT_ACCELERATION          800   // X, Y, Z and E max acceleration for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  1000  // E acceleration for retracts
+#define DEFAULT_TRAVEL_ACCELERATION   1000  // X, Y, Z acceleration for travel moves
 
 /**
  * Default Jerk limits (mm/s)
@@ -829,9 +829,9 @@
  */
 #define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
-  #define DEFAULT_XJERK 9.0
-  #define DEFAULT_YJERK 7.0
-  #define DEFAULT_ZJERK 10.0
+  #define DEFAULT_XJERK 15.0
+  #define DEFAULT_YJERK 15.0
+  #define DEFAULT_ZJERK 0.4
 
 
   //#define TRAVEL_EXTRA_XYJERK 0.0     // Additional jerk allowance for all travel moves
