@@ -587,11 +587,8 @@
 //
 // For Z set the number of stepper drivers
 //
-#ifdef QUICK_PRINT
-  #define NUM_Z_STEPPER_DRIVERS 1   // (1-4) Z options change based on how many
-#else
-  #define NUM_Z_STEPPER_DRIVERS 2   // (1-4) Z options change based on how many
-#endif
+
+#define NUM_Z_STEPPER_DRIVERS 2   // (1-4) Z options change based on how many
 
 #if NUM_Z_STEPPER_DRIVERS > 1
   //#define Z_MULTI_ENDSTOPS
@@ -1094,11 +1091,8 @@
 // @section lcd
 
 #if EITHER(ULTIPANEL, EXTENSIBLE_UI)
- #if ENABLED(QUICK_PRINT)
-  #define MANUAL_FEEDRATE { 50*60, 50*60, 20*60, 1*60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
- #else
+ 
   #define MANUAL_FEEDRATE { 50*60, 50*60, 4*60, 1*60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
- #endif
   #define SHORT_MANUAL_Z_MOVE 0.025 // (mm) Smallest manual Z move (< 0.1mm)
   #if ENABLED(ULTIPANEL)
     #define MANUAL_E_MOVES_RELATIVE // Display extruder move distance rather than "position"
@@ -2328,100 +2322,42 @@
   #define INTERPOLATE       true  // Interpolate X/Y/Z_MICROSTEPS to 256
 
   #if AXIS_IS_TMC(X)
-   #ifdef QUICK_PRINT
-    #define X_CURRENT       800        // (mA) RMS current. Multiply by 1.414 for peak current.
-   #elif ENABLED(NEW_BOARD)
-    #define X_CURRENT       500
-   #else
     #define X_CURRENT       500        // (mA) RMS current. Multiply by 1.414 for peak current.
-   #endif
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
-   #ifdef QUICK_PRINT
-    #define X_MICROSTEPS     32    // 0..256
-   #else
-    #define X_MICROSTEPS     16    // 0..256
-   #endif
-    #define X_RSENSE          0.11
-    #define X_CHAIN_POS      -1    // <=0 : Not chained. 1 : MCU MOSI connected. 2 : Next in chain, ...
+    #define X_MICROSTEPS    16    // 0..256
+    #define X_RSENSE        0.11
+    #define X_CHAIN_POS     -1    // <=0 : Not chained. 1 : MCU MOSI connected. 2 : Next in chain, ...
   #endif
 
-  #if AXIS_IS_TMC(X2)
-    #define X2_CURRENT      800
-    #define X2_CURRENT_HOME X2_CURRENT
-    #define X2_MICROSTEPS    16
-    #define X2_RSENSE         0.11
-    #define X2_CHAIN_POS     -1
-  #endif
+
 
   #if AXIS_IS_TMC(Y)
-    #if ENABLED(R4_PRO)
-      #define Y_CURRENT       900
-    #elif ENABLED(QUICK_PRINT)
-      #define Y_CURRENT       800
-    #elif ENABLED(NEW_BOARD)
-      #define Y_CURRENT       500
-    #else
-      #define Y_CURRENT       700
-    #endif
+    #define Y_CURRENT       700
     #define Y_CURRENT_HOME  Y_CURRENT
-    #define Y_MICROSTEPS     16
-    #define Y_RSENSE          0.11
-    #define Y_CHAIN_POS      -1
+    #define Y_MICROSTEPS    16
+    #define Y_RSENSE        0.11
+    #define Y_CHAIN_POS     -1
   #endif
 
-  #if AXIS_IS_TMC(Y2)
-    #define Y2_CURRENT      800
-    #define Y2_CURRENT_HOME Y2_CURRENT
-    #define Y2_MICROSTEPS    16
-    #define Y2_RSENSE         0.11
-    #define Y2_CHAIN_POS     -1
-  #endif
+
 
   #if AXIS_IS_TMC(Z)
-   #ifdef QUICK_PRINT
-    #define Z_CURRENT       800
-   #elif ENABLED(NEW_BOARD)
-    #define Z_CURRENT       500
-   #else
     #define Z_CURRENT       600
-   #endif
     #define Z_CURRENT_HOME  Z_CURRENT
-   #ifdef QUICK_PRINT
-    #define Z_MICROSTEPS     32
-   #else
-    #define Z_MICROSTEPS     16
-   #endif
-    #define Z_RSENSE          0.11
-    #define Z_CHAIN_POS      -1
+    #define Z_MICROSTEPS    16
+    #define Z_RSENSE        0.11
+    #define Z_CHAIN_POS     -1
   #endif
 
   #if AXIS_IS_TMC(Z2)
-   #if ENABLED(NEW_BOARD)
-    #define Z2_CURRENT      500
-   #else
     #define Z2_CURRENT      600
-   #endif
     #define Z2_CURRENT_HOME Z2_CURRENT
-    #define Z2_MICROSTEPS    16
-    #define Z2_RSENSE         0.11
-    #define Z2_CHAIN_POS     -1
+    #define Z2_MICROSTEPS   16
+    #define Z2_RSENSE       0.11
+    #define Z2_CHAIN_POS    -1
   #endif
 
-  #if AXIS_IS_TMC(Z3)
-    #define Z3_CURRENT      800
-    #define Z3_CURRENT_HOME Z3_CURRENT
-    #define Z3_MICROSTEPS    16
-    #define Z3_RSENSE         0.11
-    #define Z3_CHAIN_POS     -1
-  #endif
 
-  #if AXIS_IS_TMC(Z4)
-    #define Z4_CURRENT      800
-    #define Z4_CURRENT_HOME Z4_CURRENT
-    #define Z4_MICROSTEPS    16
-    #define Z4_RSENSE         0.11
-    #define Z4_CHAIN_POS     -1
-  #endif
 
   #if AXIS_IS_TMC(E0)
     #define E0_CURRENT      500
@@ -2430,54 +2366,9 @@
     #define E0_CHAIN_POS     -1
   #endif
 
-  #if AXIS_IS_TMC(E1)
-    #define E1_CURRENT      800
-    #define E1_MICROSTEPS    16
-    #define E1_RSENSE         0.11
-    #define E1_CHAIN_POS     -1
-  #endif
 
-  #if AXIS_IS_TMC(E2)
-    #define E2_CURRENT      800
-    #define E2_MICROSTEPS    16
-    #define E2_RSENSE         0.11
-    #define E2_CHAIN_POS     -1
-  #endif
 
-  #if AXIS_IS_TMC(E3)
-    #define E3_CURRENT      800
-    #define E3_MICROSTEPS    16
-    #define E3_RSENSE         0.11
-    #define E3_CHAIN_POS     -1
-  #endif
 
-  #if AXIS_IS_TMC(E4)
-    #define E4_CURRENT      800
-    #define E4_MICROSTEPS    16
-    #define E4_RSENSE         0.11
-    #define E4_CHAIN_POS     -1
-  #endif
-
-  #if AXIS_IS_TMC(E5)
-    #define E5_CURRENT      800
-    #define E5_MICROSTEPS    16
-    #define E5_RSENSE         0.11
-    #define E5_CHAIN_POS     -1
-  #endif
-
-  #if AXIS_IS_TMC(E6)
-    #define E6_CURRENT      800
-    #define E6_MICROSTEPS    16
-    #define E6_RSENSE         0.11
-    #define E6_CHAIN_POS     -1
-  #endif
-
-  #if AXIS_IS_TMC(E7)
-    #define E7_CURRENT      800
-    #define E7_MICROSTEPS    16
-    #define E7_RSENSE         0.11
-    #define E7_CHAIN_POS     -1
-  #endif
 
   /**
    * Override default SPI pins for TMC2130, TMC2160, TMC2660, TMC5130 and TMC5160 drivers here.
